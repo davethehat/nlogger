@@ -61,6 +61,19 @@ module.exports = {
   testErrorDefault : logLevelTestFunction("testErrorDefault", "error"),
   testFatalDefault : logLevelTestFunction("testFatalDefault", "fatal"),
 
+  testMessageParameterSubstitution : function() {
+    var config = {
+      level : {
+        "logger1" : "info",
+      }
+    };
+    withConfig(config).call(function(mockContext, mockLogListener) {
+      mockLogListener.expects("log").passing(mockContext.ANYTHING, "INFO",  "logger1", mockContext.any('string'), 'info 10.5 hello {"one":"two"}');
+      var logger1 = NLOGGER.logger("logger1");
+      logger1.info("info %d %s %j", 10.5, "hello", {one : "two"});
+    });
+  },
+
   testDifferentLoggersWithDifferentLevelsGetDifferentMessages : function() {
     var config = {
       level : {

@@ -82,6 +82,7 @@ module.exports = {
       logger2.error("error message from logger 2");
     });
   },
+
   testDynamicallyUpdateLogLevelForModule : function() {
     var config = {
       level : {
@@ -98,6 +99,7 @@ module.exports = {
       logger.info("info message from logger 1");
     });
   },
+
   testDifferentListenersWithDifferentLevels : function() {
     withConfig({level : {'*' : 'trace'}}).call(function(mockContext, mockLogListener) {
       NLOGGER.removeListener(mockLogListener);
